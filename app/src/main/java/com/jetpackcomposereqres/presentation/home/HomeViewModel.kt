@@ -19,9 +19,13 @@ class HomeViewModel @Inject constructor(
     var state by mutableStateOf(HomeUiState())
         private set
 
-    fun getUserList() {
+    init {
+        getUserList()
+    }
+
+    private fun getUserList() {
         viewModelScope.launch {
-            getUserListUseCase.invoke().collect() { result ->
+            getUserListUseCase.invoke().collect { result ->
                 when (result) {
                     is Resource.Loading -> {
                         state = state.copy(

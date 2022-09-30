@@ -16,7 +16,7 @@ class RepositoryImpl @Inject constructor(
     override fun getUsersList(): Flow<Resource<List<Data>>> = flow {
         emit(Resource.Loading())
         try {
-            val response = apiServices.getUsersList().map { it.dataDtoToData() }
+            val response = apiServices.getUsersList().data.map { it.dataDtoToData() }
             emit(Resource.Success(response))
         } catch (e: Exception) {
             emit(Resource.Error(message = e.localizedMessage))
